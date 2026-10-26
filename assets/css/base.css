@@ -72,7 +72,7 @@ html[data-v="a"] .sw-ref[data-for="a"], html[data-v="b"] .sw-ref[data-for="b"], 
   html.menu-open { overflow: hidden; }
   .actionbar {
     position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 60;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 8px;
   }
   .ver footer { padding-bottom: 96px !important; }
 }
