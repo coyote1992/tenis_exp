@@ -1,0 +1,78 @@
+/* Shared base for all three versions: reset, the version switcher, phone menu and action bar
+   scaffolding, entrance animation. Each version's look lives in a.css, b.css and c.css, all
+   scoped under html[data-v="…"]. */
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 120px; }
+body { margin: 0; min-height: 100vh; overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--focus, #fff); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+:root {
+  --sw: 40px;          /* height of the version switcher */
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+}
+@media (max-width: 640px) { :root { --sw: 44px; } }
+
+/* ---------- version switcher (not part of the club's site; it lets you compare) ---------- */
+.switcher {
+  position: fixed; inset: 0 0 auto 0; z-index: 90; height: var(--sw);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 0 var(--gutter);
+  font: 500 12px/1 "Inter Tight", system-ui, sans-serif; letter-spacing: .01em; color: #e9e9e9;
+  background: rgba(8, 8, 9, .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
+}
+.sw-label { opacity: .6; white-space: nowrap; }
+.sw-btns { display: flex; gap: 4px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, .06); }
+.sw-btns a {
+  display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px 0 5px; border-radius: 999px;
+  text-decoration: none; color: rgba(255, 255, 255, .72); transition: background .2s, color .2s; white-space: nowrap;
+}
+.sw-btns a b {
+  display: inline-grid; place-items: center; width: 19px; height: 19px; border-radius: 50%;
+  font-size: 10.5px; background: rgba(255, 255, 255, .1); color: #fff;
+}
+.sw-btns a:hover { color: #fff; }
+.sw-btns a[aria-current="true"] { background: #f2f2f2; color: #111; }
+.sw-btns a[aria-current="true"] b { background: #111; color: #fff; }
+.sw-ref { display: none; opacity: .55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+html[data-v="a"] .sw-ref[data-for="a"], html[data-v="b"] .sw-ref[data-for="b"], html[data-v="c"] .sw-ref[data-for="c"] { display: block; }
+@media (max-width: 900px) { .sw-ref { display: none !important; } }
+@media (max-width: 640px) {
+  .switcher { justify-content: center; padding: 0 8px; }
+  .sw-label { display: none; }
+  .sw-btns a { padding: 0 10px 0 5px; font-size: 12px; }
+}
+
+/* ---------- entrance animation ---------- */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--d, 0s); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- shared scaffolding: phone menu and phone action bar (each version styles them) ---------- */
+.menu { display: none; }
+.menu-btn { display: none; }
+.actionbar { display: none; }
+@media (max-width: 900px) {
+  .menu-btn { display: inline-flex; }
+  .menu {
+    position: fixed; inset: var(--sw) 0 0 0; z-index: 70; display: flex; flex-direction: column;
+    padding: 96px var(--gutter) 40px; overflow-y: auto;
+    opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .3s, transform .3s, visibility 0s .3s;
+  }
+  html.menu-open .ver:not([hidden]) .menu { opacity: 1; visibility: visible; transform: none; transition: opacity .3s, transform .3s; }
+  html.menu-open { overflow: hidden; }
+  .actionbar {
+    position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 60;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .ver footer { padding-bottom: 96px !important; }
+}

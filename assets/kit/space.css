@@ -1,0 +1,33 @@
+/* ==========================================================================
+   dot-space: base of the dark "space" theme. Import once, globally.
+   The site-specific part (glass cards, link colours, leftovers of a light theme) goes in the
+   site's own stylesheet under html.space; see reference/theme.md for the recipe and the
+   Gellért example.
+   ========================================================================== */
+
+:root {
+  /* the sky behind the dots: a deep version of the brand's darkest colour, lighter at the top */
+  --space-sky-top: #11281b;
+  --space-sky-mid: #0a1a10;
+  --space-sky-bottom: #07130c;
+}
+
+.space-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.space-field canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+html.space {
+  background: radial-gradient(120% 80% at 50% 0%, var(--space-sky-top) 0%, var(--space-sky-mid) 55%, var(--space-sky-bottom) 100%) fixed;
+  color-scheme: dark;
+}
+html.space body {
+  background: transparent;
+}
