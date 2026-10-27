@@ -50,6 +50,62 @@ const VERSIONS = {
   },
 };
 
+VERSIONS.d = {
+  sky: ["#131411", "#0a0b09", "#060605"],
+  palette: ["#d9ff3f", "#f4f7e6", "#b9e02c", "#7d8a52"],
+  font: '800 260px "Archivo", system-ui, sans-serif',
+  steps: [
+    { anchor: "#d-programok", shape: "racket", wide: at(0.835, 0.58, 0.1, 0.28), narrow: phone },
+    { anchor: "#d-palyak", shape: "courtLines", wide: at(0.165, 0.6, 0.12, 0.3), narrow: phone },
+    // the Champions Bowl world final: 27 countries, a 27-strong Hungarian team
+    { anchor: "#d-cb-title", done: 0.5, shape: { word: "27" }, wide: at(0.77, 0.5, 0.16, 0.3), narrow: at(0.5, 0.3, 0.26, 0.2) },
+    { anchor: "#d-sztarok", shape: "ball", ...ball },
+    { anchor: "#d-final", shape: "blackhole", ...hole },
+  ],
+};
+
+VERSIONS.e = {
+  sky: ["#0d1218", "#070a0e", "#040507"],
+  palette: ["#ffb547", "#ffffff", "#ffd08a", "#7f93a8"],
+  font: '500 250px "Geist", system-ui, sans-serif',
+  steps: [
+    { anchor: "#e-edzesek", shape: "racket", wide: at(0.835, 0.58, 0.1, 0.28), narrow: phone },
+    { anchor: "#e-palyak", shape: "courtLines", wide: at(0.165, 0.6, 0.12, 0.3), narrow: phone },
+    // open every day from 07:00 to 21:00
+    { anchor: "#e-nyitva-title", done: 0.5, shape: { word: "07–21" }, wide: at(0.765, 0.5, 0.18, 0.3), narrow: at(0.5, 0.3, 0.32, 0.2) },
+    { anchor: "#e-csapat", shape: "ball", ...ball },
+    { anchor: "#e-final", shape: "blackhole", ...hole },
+  ],
+};
+
+VERSIONS.f = {
+  sky: ["#0b0d12", "#06070a", "#030405"],
+  palette: ["#2f6bff", "#f5f6f8", "#7aa2ff", "#8a93a6"],
+  font: '700 260px "Space Grotesk", system-ui, sans-serif',
+  steps: [
+    { anchor: "#f-ut", shape: "racket", wide: at(0.835, 0.58, 0.1, 0.28), narrow: phone },
+    { anchor: "#f-palyak", shape: "courtLines", wide: at(0.165, 0.6, 0.12, 0.3), narrow: phone },
+    // competitive juniors train 15 hours a week
+    { anchor: "#f-15-title", done: 0.5, shape: { word: "15" }, wide: at(0.77, 0.5, 0.16, 0.3), narrow: at(0.5, 0.3, 0.26, 0.2) },
+    { anchor: "#f-csapat", shape: "ball", ...ball },
+    { anchor: "#f-final", shape: "blackhole", ...hole },
+  ],
+};
+
+VERSIONS.g = {
+  sky: ["#151515", "#0c0c0c", "#070707"],
+  palette: ["#ffffff", "#ececec", "#bcbcbc", "#7c7c7c"],
+  font: '800 300px "Barlow Condensed", "Arial Narrow", sans-serif',
+  steps: [
+    { anchor: "#g-programok", shape: "racket", wide: at(0.835, 0.58, 0.1, 0.28), narrow: phone },
+    { anchor: "#g-palyak", shape: "courtLines", wide: at(0.165, 0.6, 0.12, 0.3), narrow: phone },
+    // DTK, the club monogram printed on the coaches' shirts
+    { anchor: "#g-csapat-title", done: 0.5, shape: { word: "DTK" }, wide: at(0.775, 0.5, 0.17, 0.3), narrow: at(0.5, 0.3, 0.28, 0.2) },
+    { anchor: "#g-sztarok", shape: "ball", ...ball },
+    { anchor: "#g-final", shape: "blackhole", ...hole },
+  ],
+};
+
 const root = document.documentElement;
 let field = null;
 let current = null;
@@ -84,7 +140,31 @@ function show(v, { push = false } = {}) {
     gl?.getExtension("WEBGL_lose_context")?.loseContext();
   }
   field = mountSpace({ steps: cfg.steps, palette: cfg.palette, font: cfg.font });
-  revealAll(document.querySelector(`.ver[data-ver="${v}"]`));
+  const scope = document.querySelector(`.ver[data-ver="${v}"]`);
+  revealAll(scope);
+  watchTicks(scope);
+}
+
+// chapter ticks (version E): mark the chapter that holds the middle of the screen
+let tickIO = null;
+function watchTicks(scope) {
+  tickIO?.disconnect();
+  const links = [...scope.querySelectorAll("[data-ticks] a[href^='#']")];
+  if (!links.length) return;
+  const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+  tickIO = new IntersectionObserver(
+    (entries) => {
+      for (const en of entries) {
+        if (!en.isIntersecting) continue;
+        for (const a of links) a.setAttribute("aria-current", String(a === byId.get(en.target.id)));
+      }
+    },
+    { rootMargin: "-50% 0px -50% 0px" }
+  );
+  for (const id of byId.keys()) {
+    const el = document.getElementById(id);
+    if (el) tickIO.observe(el);
+  }
 }
 
 document.addEventListener("click", (e) => {

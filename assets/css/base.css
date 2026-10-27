@@ -44,12 +44,17 @@ ul, ol { padding: 0; list-style: none; }
 .sw-btns a[aria-current="true"] { background: #f2f2f2; color: #111; }
 .sw-btns a[aria-current="true"] b { background: #111; color: #fff; }
 .sw-ref { display: none; opacity: .55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-html[data-v="a"] .sw-ref[data-for="a"], html[data-v="b"] .sw-ref[data-for="b"], html[data-v="c"] .sw-ref[data-for="c"] { display: block; }
-@media (max-width: 900px) { .sw-ref { display: none !important; } }
+html[data-v="a"] .sw-ref[data-for="a"], html[data-v="b"] .sw-ref[data-for="b"], html[data-v="c"] .sw-ref[data-for="c"], html[data-v="d"] .sw-ref[data-for="d"], html[data-v="e"] .sw-ref[data-for="e"], html[data-v="f"] .sw-ref[data-for="f"], html[data-v="g"] .sw-ref[data-for="g"] { display: block; }
+@media (max-width: 1360px) { .sw-ref { display: none !important; } }
+@media (max-width: 1100px) {
+  .sw-btns a:not([aria-current="true"]) .nm { display: none; }
+  .sw-btns a:not([aria-current="true"]) { padding-right: 5px; }
+}
 @media (max-width: 640px) {
   .switcher { justify-content: center; padding: 0 8px; }
   .sw-label { display: none; }
   .sw-btns a { padding: 0 10px 0 5px; font-size: 12px; }
+  .sw-btns { gap: 2px; }
 }
 
 /* ---------- entrance animation ---------- */

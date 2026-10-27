@@ -1,0 +1,150 @@
+/* ==========================================================================
+   D · PLAKÁT
+   Mobbin: Nike After Dark Tour. One colour of type on black, set like a poster: huge bold
+   statements, a dark box with corner labels, paragraphs set big in the same colour.
+   Monochrome ball lime instead of Nike red.
+   ========================================================================== */
+html[data-v="d"] {
+  --ink: #d9ff3f;
+  --ink-2: rgba(217, 255, 63, .78);
+  --ink-3: rgba(217, 255, 63, .52);
+  --line: rgba(217, 255, 63, .2);
+  --panel: rgba(26, 27, 24, .72);
+  --font: "Archivo", system-ui, sans-serif;
+  --focus: #d9ff3f;
+  color: var(--ink);
+  font: 500 18px/1.45 var(--font);
+}
+html[data-v="d"] ::selection { background: var(--ink); color: #0b0b0b; }
+
+.ver-d main > section, .d-foot { padding-left: max(var(--gutter), calc((100vw - var(--max)) / 2)); padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2)); }
+.d-sec { padding-top: clamp(96px, 15vh, 170px); padding-bottom: clamp(80px, 12vh, 140px); }
+.ver-d a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* type */
+.d-mega { font: 800 clamp(52px, 9.4vw, 168px)/1.02 var(--font); font-stretch: 100%; letter-spacing: -.035em; text-transform: uppercase; text-wrap: balance; }
+.d-c { font-weight: 800; letter-spacing: -.04em; }
+.d-h2 { font: 800 clamp(40px, 5.6vw, 96px)/1.02 var(--font); letter-spacing: -.035em; text-transform: uppercase; margin-top: 14px; text-wrap: balance; }
+.d-kicker { font: 800 14px/1.2 var(--font); letter-spacing: .02em; text-transform: uppercase; }
+.d-body { margin-top: 48px; max-width: 30ch; font: 700 clamp(24px, 2.6vw, 40px)/1.14 var(--font); letter-spacing: -.02em; text-wrap: pretty; }
+.d-body-sm { max-width: 38ch; font-size: clamp(20px, 1.8vw, 28px); }
+
+/* buttons */
+.d-btn { display: inline-flex; align-items: center; height: 56px; padding: 0 26px; background: var(--ink); color: #0b0b0b !important; text-decoration: none; font: 800 15px var(--font); letter-spacing: .02em; text-transform: uppercase; transition: transform .2s; }
+.d-btn:hover { transform: translateY(-2px); }
+.d-btn.ghost { background: transparent; color: var(--ink) !important; box-shadow: inset 0 0 0 2px var(--ink); }
+
+/* header */
+.d-head {
+  position: fixed; top: var(--sw); left: 0; right: 0; z-index: 50; height: 64px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
+  padding: 0 max(var(--gutter), calc((100vw - var(--max)) / 2));
+  font: 800 13px/1.1 var(--font); letter-spacing: .02em; text-transform: uppercase;
+  transition: background .3s;
+}
+html.scrolled .d-head { background: rgba(8, 8, 8, .86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.d-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.d-brand img { width: 34px; height: 34px; }
+.d-nav { display: flex; gap: 26px; }
+.d-nav a, .d-headcta { text-decoration: none; }
+.d-nav a:hover, .d-headcta:hover { text-decoration: underline; }
+.d-headcta { justify-self: end; }
+
+/* hero: two big statements with a small middle row, like the After Dark Tour poster */
+.d-hero { min-height: 100svh; padding-top: calc(var(--sw) + 120px); padding-bottom: 72px; display: flex; flex-direction: column; text-align: center; align-items: center; }
+.d-mid { display: flex; justify-content: space-between; align-items: center; width: 100%; margin: clamp(32px, 7vh, 80px) 0; font: 800 15px/1.15 var(--font); text-transform: uppercase; text-align: right; }
+.d-mid img { width: 72px; height: 72px; }
+.d-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 44px; }
+
+/* the dark box with a corner label */
+.d-box { position: relative; padding: clamp(24px, 3vw, 44px); background: var(--panel); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.d-corner { position: absolute; top: clamp(20px, 2.6vw, 38px); right: clamp(20px, 2.6vw, 40px); max-width: 9ch; font: 800 clamp(14px, 1.4vw, 22px)/1 var(--font); text-transform: uppercase; text-align: left; }
+.d-box-h { font: 800 clamp(40px, 6vw, 104px)/1.02 var(--font); letter-spacing: -.035em; text-transform: uppercase; padding-right: 14%; }
+.d-box-sm { margin-top: 32px; }
+.d-cb-box .d-box-h { font-size: clamp(34px, 4.3vw, 74px); }
+.d-box-t { font: 700 clamp(20px, 1.8vw, 28px)/1.2 var(--font); padding-right: 22%; letter-spacing: -.01em; }
+
+/* rows */
+@media (min-width: 901px) {
+  .ver-d main > .d-side-r { padding-right: 31vw; }
+  .ver-d main > .d-side-l { padding-left: max(31vw, calc((100vw - var(--max)) / 2)); }
+  .d-cb > * { max-width: 56vw; }
+  .d-cb .d-cb-box { margin-top: 4vh; }
+}
+.d-rows { margin-top: 44px; border-top: 2px solid var(--ink); }
+.d-rows li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 24px; align-items: baseline; padding: 16px 0; border-bottom: 2px solid var(--line); transition: background .2s, color .2s, padding .2s; }
+.d-rows li:hover { background: var(--ink); color: #0b0b0b; padding-left: 12px; padding-right: 12px; }
+.d-rows b { font: 800 clamp(24px, 2.6vw, 40px)/1.05 var(--font); letter-spacing: -.03em; text-transform: uppercase; }
+.d-rows span { font: 600 16px/1.35 var(--font); }
+.d-note { margin-top: 26px; font-weight: 700; }
+
+/* prices: poster numbers */
+.d-prices { margin-top: 40px; }
+.d-prices li { display: grid; grid-template-columns: 1fr auto; gap: 0 20px; align-items: end; padding: 14px 0; border-bottom: 2px solid var(--line); }
+.d-prices span { font: 800 15px var(--font); text-transform: uppercase; }
+.d-prices b { grid-row: span 2; font: 800 clamp(44px, 5.4vw, 92px)/.95 var(--font); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.d-prices em { font: 600 15px var(--font); font-style: normal; color: var(--ink-3); }
+
+/* champions bowl */
+.d-quote { margin-top: 48px; padding-left: 22px; border-left: 4px solid var(--ink); }
+.d-quote p { font: 700 clamp(20px, 1.8vw, 26px)/1.25 var(--font); }
+.ver-d cite { display: block; margin-top: 12px; font: 800 13px var(--font); font-style: normal; text-transform: uppercase; color: var(--ink-3); }
+
+/* stars: two marquee lines (the big ball spins faintly behind) */
+.d-marquee { margin: 40px calc(-1 * max(var(--gutter), calc((100vw - var(--max)) / 2))) 0; overflow: hidden; }
+.d-track { display: flex; width: max-content; animation: d-scroll 48s linear infinite; }
+.d-track.rev { animation-direction: reverse; animation-duration: 56s; }
+.d-track span { flex: none; padding-right: .3em; font: 800 clamp(54px, 8vw, 140px)/1.06 var(--font); letter-spacing: -.035em; text-transform: uppercase; white-space: nowrap; }
+.d-track.rev span { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+@keyframes d-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .d-track { animation: none; } }
+.d-starpics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+.d-starpics li { display: grid; gap: 10px; }
+.d-starpics img, .d-coach-rows img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(.95) sepia(1) hue-rotate(28deg) saturate(2.6); }
+.d-starpics span { font: 800 13px var(--font); text-transform: uppercase; }
+
+/* coaches as rows with small portraits */
+.d-coach-rows { margin-top: 32px; border-top: 2px solid var(--ink); }
+.d-coach-rows li { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; padding: 12px 0; border-bottom: 2px solid var(--line); }
+.d-coach-rows img { width: 64px; height: 64px; aspect-ratio: 1; object-position: 50% 18%; }
+.d-coach-rows b { font: 800 clamp(22px, 2.4vw, 36px)/1 var(--font); letter-spacing: -.03em; text-transform: uppercase; }
+.d-coach-rows span { font: 600 16px var(--font); }
+
+/* voices */
+.d-voice { margin-top: 36px; max-width: 34ch; }
+.d-voice p { font: 800 clamp(26px, 3vw, 46px)/1.1 var(--font); letter-spacing: -.025em; }
+
+/* final */
+.d-final { min-height: 108vh; }
+.d-phone { display: block; margin-top: 8px; text-decoration: none !important; }
+.d-phone:hover { color: #fff; }
+.d-contact { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; margin-top: 48px; border-top: 2px solid var(--ink); }
+.d-contact li { display: grid; gap: 4px; padding: 14px 0; border-bottom: 2px solid var(--line); font-weight: 600; }
+.d-contact span { font: 800 13px var(--font); text-transform: uppercase; color: var(--ink-3); }
+.d-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 28px; padding-bottom: 28px; font: 800 13px var(--font); text-transform: uppercase; border-top: 2px solid var(--line); }
+
+/* phone menu + action bar */
+.d-menubtn { justify-self: end; height: 40px; padding: 0 16px; box-shadow: inset 0 0 0 2px var(--ink); font: 800 13px var(--font); text-transform: uppercase; align-items: center; }
+html.menu-open .d-menubtn { background: var(--ink); color: #0b0b0b; }
+.d-menu { background: #080808; }
+.d-menu > a { font: 800 52px/1.05 var(--font); letter-spacing: -.035em; text-transform: uppercase; text-decoration: none; }
+.d-menu > p { margin-top: auto; padding-top: 28px; font: 700 16px/1.8 var(--font); }
+.d-actionbar a { display: grid; place-items: center; height: 52px; text-decoration: none; font: 800 15px var(--font); text-transform: uppercase; }
+.d-actionbar a:first-child { background: var(--ink); color: #0b0b0b; }
+.d-actionbar a:last-child { background: rgba(8, 8, 8, .9); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+
+@media (max-width: 1100px) { .d-nav { gap: 16px; } }
+@media (max-width: 900px) {
+  .d-head { grid-template-columns: 1fr auto; }
+  .d-nav, .d-headcta { display: none; }
+  .d-hero { padding-top: calc(var(--sw) + 96px); min-height: 0; }
+  .d-mega { font-size: clamp(44px, 12.4vw, 110px); }
+  .d-rows li, .d-coach-rows li { grid-template-columns: minmax(0, 1fr); }
+  .d-coach-rows li { grid-template-columns: 56px minmax(0, 1fr); }
+  .d-coach-rows span { grid-column: 2; }
+  .d-coach-rows img { width: 56px; height: 56px; grid-row: span 2; }
+  .d-starpics { grid-template-columns: 1fr 1fr; }
+  .d-contact { grid-template-columns: 1fr; }
+  .d-box-h { padding-right: 0; padding-top: 34px; }
+  .d-box-t { padding-right: 0; padding-top: 24px; }
+}
